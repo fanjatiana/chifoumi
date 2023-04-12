@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JSP - Hello World</title>
+    <title>Jeu Chi fu mi </title>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
+<h1>Bienvenue sur notre jeu en ligne : Chi fu mi</h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="resultGame">Cliquez ici pour consulter les Résultats du jeu</a>
 </body>
 </html>
