@@ -18,10 +18,12 @@
         </div>
         <div class="card-body">
             <h4 class="card-title">Scores</h4>
-            <p class="card-text">Joueur : </p>
-            <p class="card-text">Ordinateur : </p>
-            <p>(?)a gagné !</p>
-            <button type="button" class="btn btn-primary">Recommencer le jeu</button>
+            <p class="card-text">Joueur : ${resultPlayerChoice} </p>
+            <p class="card-text">Ordinateur : ${resultComputerChoice} </p>
+            <p>${result}</p>
+            <form action="resultats" method="GET">
+            <button type="submit" class="btn btn-primary" name="btnRestart" value="recommencer">Recommencer le jeu</button>
+            </form>
         </div>
     </div>
 </div>
