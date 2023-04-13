@@ -14,14 +14,14 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            Featured
+            <h2>Résultats du chi fu mi</h2>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Scores</h5>
+            <h4 class="card-title">Scores</h4>
             <p class="card-text">Joueur : </p>
-            <p class="card-text">Ordianteur : </p>
-            <p>a gagné !</p>
-            <a href="#" class="btn btn-primary">Relancer le jeu</a>
+            <p class="card-text">Ordinateur : </p>
+            <p>(?)a gagné !</p>
+            <button type="button" class="btn btn-primary">Recommencer le jeu</button>
         </div>
     </div>
 </div>
