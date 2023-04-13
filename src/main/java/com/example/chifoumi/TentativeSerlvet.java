@@ -1,6 +1,6 @@
 package com.example.chifoumi;
 
-import Service.ComputerRandomService;
+import Service.ServerRandomService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class TentativeSerlvet extends HttpServlet {
         request.setAttribute("resultPlayerChoice", choice);
 
         // choix de l'ordinateur
-        String computerchoice = new ComputerRandomService().play();
+        String computerchoice = new ServerRandomService().play();
         request.setAttribute("resultComputerChoice", computerchoice);
 
         // resultats
@@ -37,9 +37,9 @@ public class TentativeSerlvet extends HttpServlet {
         } else if (choice.equals("Chi") && computerchoice.equals("Mi")
                 || choice.equals("Fu") && computerchoice.equals("Chi")
                 || choice.equals("Mi") && computerchoice.equals("Fu")) {
-            resultat = "L’utilisateur a gagner";
+            resultat = "Bravo vous avez gagné !!";
         } else {
-            resultat = "Le serveur a gagner";
+            resultat = "Le serveur a gagné !";
         }
         request.setAttribute("result", resultat);
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/resultats.jsp");

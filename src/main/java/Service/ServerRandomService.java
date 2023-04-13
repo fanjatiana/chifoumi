@@ -2,7 +2,7 @@ package Service;
 
 import Model.Chifumi;
 
-public class ComputerRandomService {
+public class ServerRandomService {
 
     public String play(){
         Chifumi chifumi =new Chifumi("Chi","Fu", "Mi");

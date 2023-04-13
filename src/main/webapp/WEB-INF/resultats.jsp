@@ -17,12 +17,11 @@
             <h2>Résultats du chi fu mi</h2>
         </div>
         <div class="card-body">
-            <h4 class="card-title">Scores</h4>
             <p class="card-text">Joueur : ${resultPlayerChoice} </p>
-            <p class="card-text">Ordinateur : ${resultComputerChoice} </p>
+            <p class="card-text">Serveur : ${resultComputerChoice} </p>
             <p>${result}</p>
             <form action="resultats" method="GET">
-            <button type="submit" class="btn btn-primary" name="btnRestart" value="recommencer">Recommencer le jeu</button>
+            <button type="submit" class="btn btn-primary" name="btnRestart" value="recommencer">Recommencer</button>
             </form>
         </div>
     </div>
