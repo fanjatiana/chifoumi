@@ -21,8 +21,21 @@
             <p class="card-text">Serveur : ${resultComputerChoice} </p>
             <p>${result}</p>
             <form action="resultats" method="GET">
-            <button type="submit" class="btn btn-primary" name="btnRestart" value="recommencer">Recommencer</button>
+                <button type="submit" class="btn btn-primary" name="btnRestart" value="recommencer">Recommencer</button>
             </form>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2>Compte des points sur 3 sessions gagnantes</h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text">nombre de victoire du joueur :${playerSessionReport} </p>
+                <p class="card-text">nombre de victoire du serveur : ${serverSessionReport} </p>
+                <p class="card-text">nombre d'égalité :${egalitySessionReport}</p>
+            </div>
+            <div class="card-body">
+                <p>${finalSessionResult}</p>
+            </div>
         </div>
     </div>
 </div>
