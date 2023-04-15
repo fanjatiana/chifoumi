@@ -27,47 +27,42 @@ public class TentativeSerlvet extends HttpServlet {
 
         // choix du joueur
         String choice = request.getParameter("playerChoice");
-        request.setAttribute("resultPlayerChoice", choice);
+        request.setAttribute("playerChoice", choice);
 
         // choix de l'ordinateur
-        String computerchoice = new ServerRandomService().play();
-        request.setAttribute("resultComputerChoice", computerchoice);
+        String serverChoice = new ServerRandomService().play();
+        request.setAttribute("serverChoice", serverChoice);
 
-        // resultats
-        String resultat;
-        if (choice.equals(computerchoice)) {
-            resultat = "Egalité";
-        } else if (choice.equals("Chi") && computerchoice.equals("Mi")
-                || choice.equals("Fu") && computerchoice.equals("Chi")
-                || choice.equals("Mi") && computerchoice.equals("Fu")) {
-            resultat = "Bravo vous avez gagné !!";
+        // on affiche le gagnant
+        String gameResult;
+        if (choice.equals(serverChoice)) {
+            gameResult = "Egalité";
+        } else if (choice.equals("Chi") && serverChoice.equals("Mi")
+                || choice.equals("Fu") && serverChoice.equals("Chi")
+                || choice.equals("Mi") && serverChoice.equals("Fu")) {
+            gameResult = "Bravo vous avez gagné !!";
         } else {
-            resultat = "Le serveur a gagné !";
+            gameResult = "Le serveur a gagné !";
         }
-        request.setAttribute("result", resultat);
+        request.setAttribute("gameResult", gameResult);
 
         // recuperation de la session utilisateur
         HttpSession session = request.getSession(true);
 
         // création d'une liste de sessions vide
         List<String> gameSessions = new ArrayList<>();
-
-        if (session.getAttribute("users") != null) {
-            gameSessions = (List<String>) session.getAttribute("users");
+        if (session.getAttribute("games") != null) {
+            gameSessions = (List<String>) session.getAttribute("games");
         }
 
-        // limiter à 3 sessions gagnantes
+        // on ajoute les résultats des 3 sessions
         if (gameSessions.size() < 3) {
-            gameSessions.add(resultat);
-            System.out.println("resultat du jeu " + resultat);
-
+            gameSessions.add(gameResult);
         } else {
             session.invalidate();
         }
 
-        System.out.println("nombre session" + gameSessions.size());
-
-        // historique des résultats sur 3 sessions gagnantes
+        // on récupère le nombre de victoire et des égalités avec des compteurs
         int nbPlayerWon = 0;
         int nbServerWon = 0;
         int nbEgality = 0;
@@ -84,16 +79,17 @@ public class TentativeSerlvet extends HttpServlet {
             }
         }
 
-        session.setAttribute("users", gameSessions);
+        // on sauvegarde les données de la session
+        session.setAttribute("games", gameSessions);
+
         request.setAttribute("playerSessionReport", nbPlayerWon);
         request.setAttribute("serverSessionReport", nbServerWon);
         request.setAttribute("egalitySessionReport", nbEgality);
 
-        session.setAttribute("users", gameSessions);
-
+        // affichage du vainqueur final + on vide le tableau + on détruit la session
         String finalResult;
         if (gameSessions.size() == 3 && nbServerWon > nbPlayerWon && nbServerWon > nbEgality) {
-            finalResult = "Le serveur est le vaiqueur de la partie !";
+            finalResult = "Le serveur remporte la partie !";
             gameSessions.clear();
             session.invalidate();
         } else if (gameSessions.size() == 3 && nbPlayerWon > nbServerWon && nbPlayerWon > nbEgality) {
@@ -101,17 +97,26 @@ public class TentativeSerlvet extends HttpServlet {
             gameSessions.clear();
             session.invalidate();
         } else if (gameSessions.size() == 3 && nbEgality > nbServerWon && nbEgality > nbPlayerWon && nbServerWon > nbPlayerWon) {
-            finalResult = "Le serveur est le vaiqueur de la partie !";
+            finalResult = "Le serveur remporte la partie !";
             gameSessions.clear();
             session.invalidate();
         } else if (gameSessions.size() == 3 && nbEgality > nbServerWon && nbEgality > nbPlayerWon && nbPlayerWon > nbServerWon) {
             finalResult = "Vous avez gagné la partie !";
             gameSessions.clear();
             session.invalidate();
+        }else if (gameSessions.size() == 3 && nbEgality == 3) {
+            finalResult = "Egalité ! beau match, bravo !";
+            gameSessions.clear();
+            session.invalidate();
+        }else if (gameSessions.size() == 3 && nbEgality == nbPlayerWon && nbEgality == nbServerWon) {
+            finalResult = "Egalité ! beau match, bravo !";
+            gameSessions.clear();
+            session.invalidate();
         } else {
             finalResult = "";
         }
-        request.setAttribute("finalSessionResult", finalResult);
+        request.setAttribute("finalResult", finalResult);
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/resultats.jsp");
         rd.forward(request, response);
     }
